@@ -1,0 +1,80 @@
+site_name: astro-tools
+site_description: Astrophotography tools for managing data assets and running automated image processing
+site_dir: docs-site
+repo_url: https://github.com/xultaeculcis/astro-tools
+edit_uri: edit/main/docs
+copyright: Copyright 2025 Michal Wierzbinski
+theme:
+  name: material
+  favicon: assets/logo.png
+  features:
+    - navigation.path
+    - navigation.instant
+    - navigation.tracking
+    - navigation.top
+    - search.highlight
+    - search.share
+markdown_extensions:
+  - admonition
+  - attr_list
+  - codehilite
+  - md_in_html
+  - meta
+  - pymdownx.details
+  - pymdownx.highlight:
+      use_pygments: true
+  - pymdownx.superfences
+  - pymdownx.tabbed
+plugins:
+  - glightbox:
+      touchNavigation: true
+      loop: false
+      effect: zoom
+      slide_effect: slide
+      width: 100%
+      height: auto
+      zoomable: true
+      draggable: true
+      skip_classes:
+        - custom-skip-class-name
+      auto_caption: false
+      caption_position: bottom
+      background: white
+      shadow: true
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_root_toc_entry: false
+            show_root_full_path: false
+            members_order: source
+            show_labels: true
+            heading_level: 3
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            filters:
+              - "!^_[^_]"  # exclude all members starting with _
+            extensions:
+              - griffe_pydantic:
+                schema: true
+  - mkdocs-jupyter:
+      include_source: True
+      ignore_h1_titles: True
+      execute: false
+      allow_errors: false
+watch:
+  - src/
+nav:
+  - Home: "index.md"
+  - Introduction: "intro.md"
+  - Installation: "installation.md"
+  - Contributing:
+      - Guidelines: "contributing/guidelines.md"
+      - Running tests: "contributing/tests.md"
+  - API reference:
+      - astro_tools.core: "api_ref/core.md"
+      - astro_tools.cli: "api_ref/cli.md"
+      - astro_tools.utils: "api_ref/utils.md"
