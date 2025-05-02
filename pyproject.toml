@@ -44,6 +44,7 @@ dependencies = [
     "psutil>=7.0.0",
     "pydantic>=2.11.4",
     "pydantic-settings>=2.9.1",
+    "pyzipper>=0.3.6",
     "tqdm>=4.67.1",
 ]
 
@@ -92,7 +93,7 @@ docs = [
 Homepage = "https://github.com/xultaeculcis/astro-tools"
 
 [project.scripts]
-astro-tools = "astro_tools:main"
+astro-tools = "astro_tools:cli"
 
 [build-system]
 requires = ["hatchling"]
@@ -121,7 +122,7 @@ select = [
     "YTT", # see: https://pypi.org/project/flake8-2020
     "ANN", # see: https://pypi.org/project/flake8-annotations
     "ASYNC", # see: https://pypi.org/project/flake8-async
-    "TRIO", # see: https://pypi.org/project/flake8-trio
+    "ASYNC1", # see: https://pypi.org/project/flake8-trio
     "S", # see: https://pypi.org/project/flake8-bandit
     "BLE", # see: https://pypi.org/project/flake8-blind-except
     "FBT", # see: https://pypi.org/project/flake8-boolean-trap
@@ -165,8 +166,6 @@ select = [
     "RUF", # Ruff-specific rules
 ]
 ignore = [
-    "ANN101",  # see: https://pypi.org/project/flake8-annotations - Missing type annotation for self in method
-    "ANN102",  # see: https://pypi.org/project/flake8-annotations - Missing type annotation for cls in method
     "ANN401",  # see: https://pypi.org/project/flake8-annotations - Dynamically typed expressions (typing.Any) are disallowed
     "COM", # see: https://pypi.org/project/flake8-commas - conflicts with formatter
     "ISC", # see: https://pypi.org/project/flake8-implicit-str-concat - conflicts with formatter

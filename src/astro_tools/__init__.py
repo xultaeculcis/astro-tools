@@ -4,15 +4,18 @@
 #  Licensed under MIT License.
 from __future__ import annotations
 
-from astro_tools.utils.logging import get_logger
+import click
 
-_logger = get_logger(__name__)
+from astro_tools.cli.create_dirs import create_dirs
 
 
-def main() -> None:
-    """Main entry point for astro-tools."""
-    _logger.info("Hello from astro-tools!")
+@click.group()  # type: ignore[misc]
+def cli() -> None:
+    """Main entrypoint for CLI."""
+
+
+cli.add_command(create_dirs)
 
 
 if __name__ == "__main__":
-    main()
+    cli()
