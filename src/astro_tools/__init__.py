@@ -7,6 +7,7 @@ from __future__ import annotations
 import click
 
 from astro_tools.cli.create_dirs import create_dirs
+from astro_tools.cli.rename_zips import rename_zips
 
 
 @click.group()  # type: ignore[misc]
@@ -15,6 +16,7 @@ def cli() -> None:
 
 
 cli.add_command(create_dirs)
+cli.add_command(rename_zips)
 
 
 if __name__ == "__main__":
