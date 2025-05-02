@@ -7,17 +7,12 @@ from __future__ import annotations
 import contextlib
 import logging
 import time
-from typing import TYPE_CHECKING, TypeVar
-
-from typing_extensions import ParamSpec
+from typing import TYPE_CHECKING
 
 from astro_tools.core import consts
 
 if TYPE_CHECKING:
     from collections.abc import Generator
-
-T = TypeVar("T")
-P = ParamSpec("P")
 
 
 def get_logger(name: str, log_level: int | str = logging.INFO) -> logging.Logger:

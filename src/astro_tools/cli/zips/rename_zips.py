@@ -25,7 +25,7 @@ CHANNEL_LOOKUP = {
 CHANNEL_PATTERNS = ("_ha_", "_halpha_", "_sii_", "_oiii_", "_blue_", "_red_", "_green_", "_lum_", "_luminance_")
 
 
-@click.command("rename-zips")  # type: ignore[misc]
+@click.command("rename")  # type: ignore[misc]
 @click.option(  # type: ignore[misc]
     "--data_dir",
     type=click.Path(exists=True, dir_okay=True, file_okay=False, path_type=Path),

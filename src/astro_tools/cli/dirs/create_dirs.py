@@ -10,7 +10,7 @@ import click
 from tqdm import tqdm
 
 
-@click.command("create-dirs")  # type: ignore[misc]
+@click.command("create")  # type: ignore[misc]
 @click.option(  # type: ignore[misc]
     "--names_fp",
     type=click.Path(exists=True, file_okay=True, dir_okay=False, resolve_path=True, path_type=Path),

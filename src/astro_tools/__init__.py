@@ -6,8 +6,9 @@ from __future__ import annotations
 
 import click
 
-from astro_tools.cli.create_dirs import create_dirs
-from astro_tools.cli.rename_zips import rename_zips
+from astro_tools.cli.dirs.create_dirs import create_dirs
+from astro_tools.cli.zips.check_zips import check_zips
+from astro_tools.cli.zips.rename_zips import rename_zips
 
 
 @click.group()  # type: ignore[misc]
@@ -15,8 +16,19 @@ def cli() -> None:
     """Main entrypoint for CLI."""
 
 
-cli.add_command(create_dirs)
-cli.add_command(rename_zips)
+@cli.group("dir")  # type: ignore[misc]
+def cli_dir() -> None:
+    """Astro directory related operations."""
+
+
+@cli.group("zip")  # type: ignore[misc]
+def cli_zip() -> None:
+    """Zip archive related operations."""
+
+
+cli_dir.add_command(create_dirs)
+cli_zip.add_command(rename_zips)
+cli_zip.add_command(check_zips)
 
 
 if __name__ == "__main__":
