@@ -37,7 +37,7 @@ Please, replace arguments with your values.
 After downloading you Telescope.Live data you can run:
 
 ```shell
-astro-tools rename-zips --data_dir=/home/xultaeculcis/Downloads
+astro-tools zip rename --data_dir=/home/xultaeculcis/Downloads
 ```
 
 To rename the ZIP files to follow this pattern: `<TARGET_NAME>_<TELESCOPE>_<FILTERS>_<FRAMES>[-<OBSERVATION_NUMBER>].zip`.
@@ -58,7 +58,7 @@ ngc-1531-dwarf-galaxy-in-eridanus
 Then you can run:
 
 ```shell
-astro-tools create-dirs \
+astro-tools dir create \
     --names_fp ./data/names.txt \
     --target_dir=/home/xultaeculcis/Downloads
 ```

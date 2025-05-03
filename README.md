@@ -65,13 +65,13 @@ astro-tools zip check \
 ### Rename ZIPs
 
 ```bash
-astro-tools rename-zips --data_dir=/path/to/zips
+astro-tools zip rename --data_dir=/path/to/zips
 ```
 
 ### Create Target Directories
 
 ```bash
-astro-tools create-dirs \
+astro-tools dir create \
   --names_fp=./data/names.txt \
   --target_dir=/path/to/target
 ```
