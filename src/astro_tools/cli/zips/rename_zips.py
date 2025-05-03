@@ -22,7 +22,9 @@ CHANNEL_LOOKUP = {
     "_green_": "G",
     "_blue_": "B",
 }
+"""Channel lookup dictionary."""
 CHANNEL_PATTERNS = ("_ha_", "_halpha_", "_sii_", "_oiii_", "_blue_", "_red_", "_green_", "_lum_", "_luminance_")
+"""Channel pattern mapping."""
 
 
 @click.command("rename")  # type: ignore[misc]
@@ -32,12 +34,7 @@ CHANNEL_PATTERNS = ("_ha_", "_halpha_", "_sii_", "_oiii_", "_blue_", "_red_", "_
     help="Path to the directory containing telescope-live data",
 )
 def rename_zips(data_dir: Path) -> None:
-    """Rename telescope-live zip archives.
-
-    Args:
-        data_dir: Path to the directory containing telescope-live data.
-
-    """
+    """Rename telescope-live zip archives."""
     fps = sorted(data_dir.rglob("*.zip"))
 
     name_lookup: dict[str, list[Path]] = defaultdict(list)

@@ -4,10 +4,11 @@
 
 from __future__ import annotations
 
-from astro_tools.core.consts import compute, logging, reproducibility
+from astro_tools.core.consts import compute, directories, logging, reproducibility
 
 __all__ = [
     "compute",
+    "directories",
     "logging",
     "reproducibility",
 ]

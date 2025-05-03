@@ -22,13 +22,7 @@ from tqdm import tqdm
     help="Target directory where new sub-directories will be created",
 )
 def create_dirs(names_fp: Path, target_dir: Path) -> None:
-    """Creates directories based on file with dir names.
-
-    Args:
-        names_fp: The path to a file with names.
-        target_dir: The path to output directory.
-
-    """
+    """Creates directories based on file with dir names."""
     names = names_fp.read_text().splitlines()
     target_dir.mkdir(parents=True, exist_ok=True)
     for name in tqdm(names, desc="Creating dirs"):
