@@ -11,6 +11,10 @@ from pathlib import Path
 
 import click
 
+from astro_tools.utils.logging import get_logger
+
+_logger = get_logger(__name__)
+
 CHANNEL_LOOKUP = {
     "_ha_": "H",
     "_halpha_": "H",
@@ -33,7 +37,7 @@ CHANNEL_PATTERNS = ("_ha_", "_halpha_", "_sii_", "_oiii_", "_blue_", "_red_", "_
     type=click.Path(exists=True, dir_okay=True, file_okay=False, path_type=Path),
     help="Path to the directory containing telescope-live data",
 )
-def rename_zips(data_dir: Path) -> None:
+def rename_zips(data_dir: Path) -> None:  # noqa: C901
     """Rename telescope-live zip archives."""
     fps = sorted(data_dir.rglob("*.zip"))
 
@@ -49,7 +53,11 @@ def rename_zips(data_dir: Path) -> None:
             for c, v in CHANNEL_LOOKUP.items():
                 if c in channels:
                     channel_combination += v
-            target, telescope, frames, _ = zip_fp.stem.split("_")
+            try:
+                target, telescope, frames, _ = zip_fp.stem.split("_")
+            except ValueError:
+                _logger.exception("File name does not match the pattern, skipping...  %s", zip_fp.as_posix())
+                continue
             new_zip_archive_name = f"{target}_{telescope}_{channel_combination}_{frames}"
             name_lookup[new_zip_archive_name].append(zip_fp)
 
