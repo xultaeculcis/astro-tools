@@ -177,4 +177,4 @@ mlruns/
 /docs/examples/*
 !/notebooks/*.ipynb
 !/docs/examples/.gitkeep
-/uv.lock
+/file_lookup.txt

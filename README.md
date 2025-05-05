@@ -81,6 +81,7 @@ astro-tools dir create \
 ```bash
 astro-tools blob upload \
   --source_dir=/path/to/zips \
+  --log_dir=./blob-upload-logs \
   --container=datasets \
   --prefix=telescope-live/raw-zips
 ```
@@ -98,6 +99,7 @@ drive.mount('/content/drive')
 pip install git+https://github.com/xultaeculcis/astro-tools.git
 astro-tools blob upload \
   --source_dir=/content/drive/MyDrive/Shared/Astrophoto_Release \
+  --log_dir=./blob-upload-logs \
   --container=datasets \
   --prefix=whwang/gdrive-export
 ```

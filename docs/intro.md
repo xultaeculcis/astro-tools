@@ -86,6 +86,7 @@ Run:
 ```shell
 astro-tools blob upload \
     --source_dir=/home/xultaeculcis/Downloads \
+    --log_dir=./blob-upload-logs \
     --container=datasets \
     --prefix=telescope-live/raw-zips \
     --workers=10
@@ -131,6 +132,7 @@ your GDrive folder called `Shared`.
     ```shell
     !astro-tools blob upload \
       --source_dir=/content/drive/MyDrive/Shared/Astrophoto_Release/ \
+      --log_dir=./blob-upload-logs \
       --container=datasets \
       --prefix=whwang/gdrive-export
     ```

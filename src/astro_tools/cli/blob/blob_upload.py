@@ -4,6 +4,7 @@
 #  Licensed under MIT License.
 from __future__ import annotations
 
+import logging
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
@@ -34,6 +35,12 @@ LOCAL_DIRECTORY = "/content/drive/MyDrive/Other/Astrophoto_Release/"
     type=click.Path(file_okay=True, dir_okay=False, path_type=Path),
     help="The lookup file path to be used instead of listing the contents of the source directory.",
 )
+@click.option(  # type: ignore[misc]
+    "--log_dir",
+    required=True,
+    type=click.Path(file_okay=False, dir_okay=True, path_type=Path),
+    help="The path to the log directory - will be used to save logs and files paths found on blob storage.",
+)
 @click.option("--prefix", help="The prefix for the blob files.", required=True)  # type: ignore[misc]
 @click.option(  # type: ignore[misc]
     "--container",
@@ -47,6 +54,7 @@ LOCAL_DIRECTORY = "/content/drive/MyDrive/Other/Astrophoto_Release/"
 )
 def blob_upload(
     source_dir: Path,
+    log_dir: Path,
     prefix: str,
     lookup_file: Path | None = None,
     container: str = "datasets",
@@ -55,12 +63,15 @@ def blob_upload(
     """Uploads files from source directory to specified Blob Storage container."""
     settings = current_settings()
     source_dir = source_dir.resolve().absolute()
+    log_dir.mkdir(parents=True, exist_ok=True)
+
+    _logger.addHandler(logging.FileHandler(log_dir / "blob_upload.log"))
 
     blob_service_client = BlobServiceClient.from_connection_string(settings.blob.connection_string)
     container_client = blob_service_client.get_container_client(container)
 
     if lookup_file is None:
-        lookup_file = Path.cwd() / "file_lookup.txt"
+        lookup_file = log_dir / "file_lookup.txt"
 
     prefix = prefix.strip("/")
 
@@ -73,7 +84,7 @@ def blob_upload(
             for fp in tqdm(source_dir.rglob("*"), desc=f"Listing files under: {source_dir.name}")
             if fp.is_file()
         }
-        lookup_file.write_text("\n".join([fp.as_posix() for fp in all_files]))
+        lookup_file.write_text("\n".join([fp.as_posix() for fp in sorted(all_files)]))
 
     all_files = {path.relative_to(source_dir) for path in all_files}
 
@@ -90,6 +101,11 @@ def blob_upload(
         Path(blob_name[len(prefix) + 1 :]) for blob_name in existing_blobs
     }  # remove prefix from paths
     files_to_upload = all_files - existing_relative_paths
+
+    (log_dir / "files_to_upload.txt").write_text("\n".join([fp.as_posix() for fp in sorted(files_to_upload)]))
+    (log_dir / "duplicates.txt").write_text(
+        "\n".join([fp.as_posix() for fp in sorted(existing_relative_paths & all_files)])
+    )
 
     if not files_to_upload:
         _logger.info("All files already uploaded... Nothing to do.")
